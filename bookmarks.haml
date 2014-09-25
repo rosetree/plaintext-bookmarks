@@ -14,6 +14,10 @@
         text-decoration: none;
         color: #00E;
       }
+      a:hover:after {
+        content: ' ' attr(title);
+        color: #555;
+      }
       span {
         color: #555;
         font-size: 0.8rem;
@@ -24,11 +28,12 @@
     %ul
       -bookmarks.each do |bookmark|
         %li
-          %a{href: bookmark["url"]}<
-            = bookmark["title"]
-          %br
           -if bookmark["comment"]
-            = bookmark["comment"]
-            %br
+            %a{href: bookmark["url"], title: bookmark["comment"]}<
+              = bookmark["title"]
+          -else
+            %a{href: bookmark["url"]}<
+              = bookmark["title"]
+          %br
           %span= "#{bookmark["pretty_date"]} · #{bookmark["tag_list"]}"
 
