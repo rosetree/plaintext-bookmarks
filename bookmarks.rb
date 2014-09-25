@@ -8,6 +8,7 @@ config = YAML.load_file "config.yaml"
 # TODO: Configuration: template, html output file
 date_format = "%F %H:%M"
 directory = "~/.bookmarks" # TODO: This is not tested yet.
+output_file = "~/.bookmarks.html"
 
 if config["date_format"]
   date_format = config["date_format"]
@@ -16,6 +17,10 @@ end
 # TODO: Check whether the directory exists and is accessable.
 if config["bookmarks_directory"]
   directory = config["bookmarks_directory"]
+
+# TODO: Check whether the file exists and is accessable.
+if config["output_file"]
+  output_file = config["output_file"]
 end
 
 bookmarks = []
@@ -30,6 +35,6 @@ end
 template = File.read "bookmarks.haml"
 haml_engine = Haml::Engine.new template
 output = haml_engine.render Object.new, :bookmarks => bookmarks
-# TODO: Write to output file.
-puts output
+
+File.open(output_file, "w") { |file| file.write output }
 

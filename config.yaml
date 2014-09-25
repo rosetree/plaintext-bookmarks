@@ -1,4 +1,5 @@
 ---
 bookmarks_directory: "bookmarks"
+output_file: "bookmarks.html"
 date_format: "%F %H:%M"
 ...
