@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 require "haml"
 require "yaml"
 # TODO: Create Web-Feed (RSS or Atom).
@@ -11,7 +12,7 @@ end
 # TODO: Let option file be specified via commandline parameter.
 config = YAML.load_file(expand_home_path "~/.bookmarksrc")
 # Provide fallbacks for all configuration variables.
-# TODO: Configuration: template, html output file
+# TODO: Configuration: template, rss?, rss file
 date_format = "%F %H:%M"
 directory = "~/.bookmarks"
 output_file = "~/.bookmarks.html"
@@ -45,5 +46,7 @@ template = File.read "bookmarks.haml"
 haml_engine = Haml::Engine.new template
 output = haml_engine.render Object.new, :bookmarks => bookmarks
 
-File.open(output_file, "w") { |file| file.write output }
+File.open(output_file, "w") do |file|
+  file.write output
+end
 
