@@ -47,7 +47,12 @@ Dir.glob("#{directory}/*.yaml") do |bookmark_file|
   bookmark["tag_list"] = bookmark["tags"].join ", "
   bookmarks << bookmark
 end
-# TODO: Sort bookmarks by date.
+
+# Sort bookmarks by date. Newer bookmarks at the top of the page.
+bookmarks.sort! do |a,b|
+  # XXX: I'm not completly sure why this works ...
+  b["created_at"] <=> a["created_at"]
+end
 
 template = File.read template_file
 haml_engine = Haml::Engine.new template
