@@ -1,0 +1,34 @@
+!!!
+%html
+  %head
+    %meta{charset: "utf-8"}
+    %title Bookmarks
+    :css
+      li {
+        line-height: 1.4;
+      }
+      li + li {
+        margin-top: 1rem;
+      }
+      a {
+        text-decoration: none;
+        color: #00E;
+      }
+      span {
+        color: #555;
+        font-size: 0.8rem;
+      }
+  %body
+    %h1= "#{bookmarks.length} Bookmarks"
+
+    %ul
+      -bookmarks.each do |bookmark|
+        %li
+          %a{href: bookmark["url"]}<
+            = bookmark["title"]
+          %br
+          -if bookmark["comment"]
+            = bookmark["comment"]
+            %br
+          %span= "#{bookmark["pretty_date"]} · #{bookmark["tag_list"]}"
+
