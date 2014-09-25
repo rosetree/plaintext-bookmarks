@@ -1,5 +1,6 @@
 ---
 directory: "~/.bookmarks"
 output_file: "~/.bookmarks.html"
+template_file: "~/.bookmarks/template.haml"
 date_format: "%F %H:%M"
 ...

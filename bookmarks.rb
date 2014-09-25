@@ -16,6 +16,7 @@ config = YAML.load_file(expand_home_path "~/.bookmarksrc")
 date_format = "%F %H:%M"
 directory = "~/.bookmarks"
 output_file = "~/.bookmarks.html"
+template_file = "~/.bookmarks/template.haml"
 
 if config["date_format"]
   date_format = config["date_format"]
@@ -33,6 +34,12 @@ if config["output_file"]
 end
 output_file = expand_home_path output_file
 
+# TODO: Check whether the file exists and is accessable.
+if config["template_file"]
+  template_file = config["template_file"]
+end
+template_file = expand_home_path template_file
+
 bookmarks = []
 Dir.glob("#{directory}/*.yaml") do |bookmark_file|
   bookmark = YAML.load_file bookmark_file
@@ -42,7 +49,7 @@ Dir.glob("#{directory}/*.yaml") do |bookmark_file|
 end
 # TODO: Sort bookmarks by date.
 
-template = File.read "bookmarks.haml"
+template = File.read template_file
 haml_engine = Haml::Engine.new template
 output = haml_engine.render Object.new, :bookmarks => bookmarks
 
