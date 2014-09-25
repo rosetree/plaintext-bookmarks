@@ -1,5 +1,5 @@
 ---
-directory: "bookmarks"
-output_file: "bookmarks.html"
+directory: "~/.bookmarks"
+output_file: "~/.bookmarks.html"
 date_format: "%F %H:%M"
 ...

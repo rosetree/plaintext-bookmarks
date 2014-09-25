@@ -2,12 +2,17 @@ require "haml"
 require "yaml"
 # TODO: Create Web-Feed (RSS or Atom).
 
+def expand_home_path (path)
+  if path =~ /^~/
+    return path.gsub(/^~/, Dir.home)
+  end
+end
+
 # TODO: Let option file be specified via commandline parameter.
-config = YAML.load_file "config.yaml"
+config = YAML.load_file(expand_home_path "~/.bookmarksrc")
 # Provide fallbacks for all configuration variables.
 # TODO: Configuration: template, html output file
 date_format = "%F %H:%M"
-# TODO: This is not tested yet.
 directory = "~/.bookmarks"
 output_file = "~/.bookmarks.html"
 
@@ -19,11 +24,13 @@ end
 if config["directory"]
   directory = config["directory"]
 end
+directory = expand_home_path directory
 
 # TODO: Check whether the file exists and is accessable.
 if config["output_file"]
   output_file = config["output_file"]
 end
+output_file = expand_home_path output_file
 
 bookmarks = []
 Dir.glob("#{directory}/*.yaml") do |bookmark_file|
