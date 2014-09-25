@@ -7,7 +7,8 @@ config = YAML.load_file "config.yaml"
 # Provide fallbacks for all configuration variables.
 # TODO: Configuration: template, html output file
 date_format = "%F %H:%M"
-directory = "~/.bookmarks" # TODO: This is not tested yet.
+# TODO: This is not tested yet.
+directory = "~/.bookmarks"
 output_file = "~/.bookmarks.html"
 
 if config["date_format"]
@@ -15,8 +16,9 @@ if config["date_format"]
 end
 
 # TODO: Check whether the directory exists and is accessable.
-if config["bookmarks_directory"]
-  directory = config["bookmarks_directory"]
+if config["directory"]
+  directory = config["directory"]
+end
 
 # TODO: Check whether the file exists and is accessable.
 if config["output_file"]
